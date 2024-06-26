@@ -1,0 +1,8 @@
+/* @ ERROR TEXT */
+.error_text {
+  text-align: left;
+  font-size: 1.4rem;
+  color: var(--color-error);
+  font-weight: 600;
+  margin-top: 0.5rem;
+}

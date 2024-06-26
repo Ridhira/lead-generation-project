@@ -1,0 +1,25 @@
+:root {
+  --bg-light: #f0f0f0;
+  --color-white: #fff;
+  --color-primary: #0056b3;
+  --color-secondary: #12457c;
+  --color-grey: #ccc;
+  --color-success: #008000;
+  --color-error: #ff0000;
+}
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "Poppins";
+}

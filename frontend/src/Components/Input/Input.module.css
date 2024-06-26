@@ -1,0 +1,40 @@
+/* @ INPUT GROUP */
+
+.inputGroup {
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.inputGroup label {
+  display: block;
+  margin-bottom: 0.5rem;
+  text-align: left;
+  font-size: 1.5rem;
+  color: var(--color-primary);
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.inputGroup input {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid var(--color-grey);
+  border-radius: 0.5rem;
+  font-size: 1.5rem;
+  outline: none;
+}
+
+.inputGroup input:focus {
+  outline: 2px solid var(--color-secondary);
+}
+
+@media (max-width: 468px) {
+  .inputGroup label {
+    font-size: 1.2rem;
+  }
+
+  .inputGroup input {
+    padding: 0.8rem 1rem;
+    font-size: 1.2rem;
+  }
+}

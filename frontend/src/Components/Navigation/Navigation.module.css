@@ -1,0 +1,21 @@
+/* @ SIGN UP  LINK */
+.signupContainer {
+  margin-top: 2rem;
+}
+
+.signupLink {
+  color: var(--color-secondary);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.signupLink:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 468px) {
+  .signupLink {
+    font-size: 12px;
+  }
+}
