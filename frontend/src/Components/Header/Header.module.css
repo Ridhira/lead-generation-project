@@ -1,0 +1,128 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 8rem;
+  background-color: var(--color-white);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  width: 50px;
+  height: 50px;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+}
+
+.link {
+  margin: 0 3rem;
+  text-decoration: none;
+  color: var(--color-primary);
+  cursor: pointer;
+  position: relative;
+  font-weight: bold;
+  font-size: 1.4rem;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdownContent {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 3rem;
+  left: 0;
+  background-color: var(--color-white);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  border-radius: 8px;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+}
+
+.dropdownContentAvatar {
+  top: 4.4rem;
+}
+
+.dropdownContentAvatar button {
+  padding: 12px 20px;
+  color: var(--color-error);
+  white-space: nowrap;
+  border: none;
+  transition: background-color 0.3s;
+  font-size: 1.3rem;
+  font-weight: bold;
+  background-color: var(--color-white);
+  cursor: pointer;
+}
+
+.dropdownContent button:hover {
+  background-color: var(--bg-light);
+}
+
+.dropdownContent a {
+  padding: 12px 20px;
+  text-decoration: none;
+  color: var(--color-primary);
+  white-space: nowrap;
+  transition: background-color 0.3s;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.dropdownContent a:hover {
+  background-color: var(--bg-light);
+}
+
+.link:hover .dropdownContent,
+.avatarContainer:hover .dropdownContent {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.avatarContainer {
+  position: relative;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+  user-select: none;
+  font-weight: bold;
+  transition: background-color 0.3s;
+  font-size: 1.3rem;
+}
+
+.avatarContainer:hover .dropdownContent {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.avatar:hover {
+  background-color: var(--color-secondary);
+}

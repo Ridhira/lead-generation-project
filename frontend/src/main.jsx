@@ -1,28 +1,64 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.jsx";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import SignupPage from "./Pages/userRegistration/SignupPage.jsx";
-import SendOtpPage from "./Pages/userRegistration/SendOtpPage.jsx";
-import Dashboard from "./Pages/Dashboard/Dashboard.jsx";
+import ProtectedRoute from "./utility/ProtectedRoute.jsx";
+import PageLoader from "./Components/PageLoader/PageLoader.jsx";
+import Header from "./Components/Header/Header";
+
+const App = lazy(() => import("./App.jsx"));
+const SignupPage = lazy(() =>
+  import("./Pages/userRegistration/SignupPage.jsx")
+);
+const SendOtpPage = lazy(() =>
+  import("./Pages/userRegistration/SendOtpPage.jsx")
+);
+const Dashboard = lazy(() => import("./Pages/Dashboard/Dashboard.jsx"));
+const NotFound = lazy(() => import("./Pages/NotFound/NotFound.jsx"));
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: (
+      <Suspense fallback={<PageLoader />}>
+        <App />
+      </Suspense>
+    ),
   },
   {
     path: "/signup",
-    element: <SignupPage />,
+    element: (
+      <Suspense fallback={<PageLoader />}>
+        <SignupPage />
+      </Suspense>
+    ),
   },
   {
     path: "/reset-password",
-    element: <SendOtpPage />,
+    element: (
+      <Suspense fallback={<PageLoader />}>
+        <SendOtpPage />
+      </Suspense>
+    ),
   },
   {
     path: "/dashboard",
-    element: <Dashboard />,
+    element: (
+      // <ProtectedRoute>
+      <Suspense fallback={<PageLoader />}>
+        <Header />
+        <Dashboard />
+      </Suspense>
+      // </ProtectedRoute>
+    ),
+  },
+  {
+    path: "*",
+    element: (
+      <Suspense fallback={<PageLoader />}>
+        <NotFound />
+      </Suspense>
+    ),
   },
 ]);
 

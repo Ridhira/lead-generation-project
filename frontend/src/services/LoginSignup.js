@@ -1,7 +1,5 @@
 import axios from "axios";
 
-// console.log(process.env.REACT_APP_API_URL);
-
 const UserLogin = async (userInfo) => {
   try {
     const res = await axios.post(`http://localhost:8080/auth/login`, {
@@ -11,7 +9,6 @@ const UserLogin = async (userInfo) => {
 
     return res.data;
   } catch (error) {
-    console.log(error);
     if (error.response) {
       return error.response.data;
     } else {
@@ -30,10 +27,10 @@ const UserSignup = async (userInfo) => {
       name: userInfo.userName,
       email: userInfo.email,
       password: userInfo.password,
+      partner_id: userInfo.partner_id,
     });
     return res.data;
   } catch (error) {
-    console.log(error);
     if (error.response) {
       return error.response.data;
     } else {
@@ -53,7 +50,6 @@ const SendOTP = async (userEmail) => {
     });
     return res.data;
   } catch (error) {
-    console.log(error);
     if (error.response) {
       return error.response.data;
     } else {
@@ -75,7 +71,6 @@ const ResetPassword = async (userInfo, email) => {
     });
     return res.data;
   } catch (error) {
-    console.log(error);
     if (error.response) {
       return error.response.data;
     } else {

@@ -7,6 +7,7 @@ import { InputText, InputPassword } from "../../Components/Input/Input";
 import { UserLogin } from "../../services/LoginSignup";
 import ErrorText from "../../Components/ErrorText/ErrorText";
 import { useNavigate } from "react-router-dom";
+import helper from "../../utility/helper";
 
 const LoginPage = () => {
   const [errors, setErrors] = useState();
@@ -24,14 +25,12 @@ const LoginPage = () => {
     const isValid = loginFormValidation(formData, setErrors);
     if (isValid) {
       const result = await UserLogin(formData);
-      console.log("result-->", result);
+      await helper.SetItem("user", result);
       if (result.success) {
         navigate("/dashboard");
       } else {
         setServerError(result.message);
       }
-    } else {
-      console.log("Form Validation Failed");
     }
   };
 

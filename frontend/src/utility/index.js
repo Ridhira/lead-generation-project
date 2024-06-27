@@ -56,6 +56,10 @@ const signUpFormValidation = (formData, setErrors) => {
     newErrors.email = "Invalid email format";
   }
 
+  if (!formData?.partner_id) {
+    newErrors.partner_id = "Partner Id is required";
+  }
+
   if (!formData.password) {
     newErrors.password = "Password is required";
   } else if (!isValidPassword(formData.password)) {

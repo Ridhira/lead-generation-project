@@ -18,6 +18,7 @@ const SignupPage = () => {
     email: "",
     password: "",
     confirmPassword: "",
+    partner_id: "",
   });
 
   // @ SIGN UP BUTTON HANDLER
@@ -26,14 +27,11 @@ const SignupPage = () => {
     const isValid = signUpFormValidation(formData, setErrors);
     if (isValid) {
       const result = await UserSignup(formData);
-      console.log("result-->", result);
       if (result.success) {
         navigate("/");
       } else {
         setServerError(result.message);
       }
-    } else {
-      console.log("Form Validation Failed");
     }
   };
 
@@ -70,6 +68,16 @@ const SignupPage = () => {
               value={formData}
               onChange={handleChange}
               label="Email"
+              error={errors}
+            />
+
+            <InputText
+              type="number"
+              id="partner_id"
+              name="partner_id"
+              value={formData}
+              onChange={handleChange}
+              label="Partner Id"
               error={errors}
             />
 

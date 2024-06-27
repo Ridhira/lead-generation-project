@@ -30,7 +30,6 @@ const SendOtpPage = () => {
       return;
     } else {
       const result = await SendOTP(enteredEmail);
-      console.log("result-->", result);
       if (result.success) {
         setShowEmail(false);
         setServerError();
@@ -50,8 +49,6 @@ const SendOtpPage = () => {
       } else {
         setServerError(result.message);
       }
-    } else {
-      console.log("Form Validation Failed");
     }
   };
 
