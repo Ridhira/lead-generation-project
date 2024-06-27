@@ -16,8 +16,6 @@ const login = async (req, res) => {
 
     const user = await User.findOne({ email: email.toLowerCase() });
 
-    console.log("user", user);
-
     if (!user) {
       return res.status(403).json({
         message: "Email does not exist",
@@ -45,6 +43,7 @@ const login = async (req, res) => {
       authToken: jwtToken,
       email,
       name: user.name,
+      _id: user._id,
     });
   } catch (err) {
     res.status(500).json({ message: "Internal server error", success: false });
@@ -57,8 +56,7 @@ const login = async (req, res) => {
 // # METHOD      --> POST
 const signup = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
-    console.log(name, email, password);
+    const { name, email, password, partner_id } = req.body;
     const user = await User.findOne({ email });
     if (user) {
       return res.status(409).json({
@@ -74,6 +72,7 @@ const signup = async (req, res) => {
       email: email?.toLowerCase(),
       password,
       otp,
+      partner_id,
     };
 
     const userModal = new User(userInfo);
@@ -125,7 +124,6 @@ const updatePassword = async (req, res) => {
 // ! METHOD      --> POST
 const sendOtp = async (req, res) => {
   const { email } = req.body;
-  console.log("email-->", email);
 
   try {
     const user = await User.findOne({ email: email.toLowerCase() });

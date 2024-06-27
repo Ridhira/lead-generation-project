@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const AuthRouter = require("./Routes/AuthRouter");
 const ProductRouter = require("./Routes/ProductRouter");
+const ProfileRouter = require("./Routes/ProfileRoute");
 
 const app = express();
 dotenv.config();
@@ -21,6 +22,7 @@ app.use(cors());
 
 app.use("/auth", AuthRouter);
 app.use("/products", ProductRouter);
+app.use("/profile", ProfileRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is Running at port ${PORT}`);
