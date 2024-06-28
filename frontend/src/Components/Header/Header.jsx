@@ -22,12 +22,14 @@ const Header = () => {
     <Fragment>
       <header className={styles.header}>
         <div className={styles.left}>
-          <img src={Ridhira_logo} alt="Icon" className={styles.icon} />
+          <Link to="/dashboard">
+            <img src={Ridhira_logo} alt="Icon" className={styles.icon} />
+          </Link>
         </div>
         <div className={styles.right}>
-          <a href="#home" className={styles.link}>
+          <Link to="/dashboard" className={styles.link}>
             Home
-          </a>
+          </Link>
           <div className={`${styles.dropdown} ${styles.link}`}>
             Services
             <div className={styles.dropdownContent}>
@@ -49,7 +51,8 @@ const Header = () => {
             <div
               className={`${styles.dropdownContent} ${styles.dropdownContentAvatar}`}
             >
-              <Link to="#">Profile</Link>
+              <Link to="/user-profile">Profile</Link>
+              <Link to="/update-password">Update Password</Link>
               <button onClick={logoutClickHandler}>Logout</button>
             </div>
           </div>

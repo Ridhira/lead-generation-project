@@ -56,10 +56,6 @@ const SendOtpPage = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    if (name === "otp" && value.length > 7) {
-      return;
-    }
-
     setFormData({
       ...formData,
       [name]: value,

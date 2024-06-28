@@ -1,3 +1,5 @@
+import helper from "./helper";
+
 // % EMAIL VALIDATION
 const isValidEmail = (email) => {
   const emailRegex = /^\S+@\S+\.\S+$/;
@@ -104,10 +106,62 @@ const otpFormValidation = (formData, setErrors) => {
   return Object.keys(newErrors).length === 0;
 };
 
+// # PROFILE FORM VALIDATION RULE
+const profileFormValidation = (formData, setErrors) => {
+  let newErrors = {};
+
+  if (
+    helper.isNullUndefinedOrEmpty(formData?.dob) &&
+    helper.isNullUndefinedOrEmpty(formData?.phone) &&
+    helper.isNullUndefinedOrEmpty(formData?.designation) &&
+    helper.isNullUndefinedOrEmpty(formData?.address)
+  ) {
+    newErrors.error = "At least one input field is required";
+  }
+  setErrors(newErrors);
+  return Object.keys(newErrors).length === 0;
+};
+
+// % OTP VALIDATION RULES
+const updatePasswordValidation = (formData, setErrors) => {
+  let newErrors = {};
+
+  if (!formData?.email) {
+    newErrors.email = "Email is required";
+  } else if (!isValidEmail(formData.email)) {
+    newErrors.email = "Invalid email format";
+  }
+
+  if (!formData.oldPassword) {
+    newErrors.oldPassword = "Old password is required";
+  } else if (!isValidPassword(formData.oldPassword)) {
+    newErrors.oldPassword =
+      "Password must be at least 8 characters long and contain at least one symbol, one number, one uppercase letter, and one lowercase letter";
+  }
+
+  if (!formData.newPassword) {
+    newErrors.newPassword = "New password is required";
+  } else if (!isValidPassword(formData.newPassword)) {
+    newErrors.newPassword =
+      "Password must be at least 8 characters long and contain at least one symbol, one number, one uppercase letter, and one lowercase letter";
+  }
+
+  if (!formData.confirmPassword) {
+    newErrors.confirmPassword = "Confirm password is required";
+  } else if (formData.confirmPassword !== formData.newPassword) {
+    newErrors.confirmPassword = "Passwords must match";
+  }
+
+  setErrors(newErrors);
+  return Object.keys(newErrors).length === 0;
+};
+
 export {
   isValidEmail,
   isValidPassword,
   loginFormValidation,
   signUpFormValidation,
   otpFormValidation,
+  profileFormValidation,
+  updatePasswordValidation,
 };

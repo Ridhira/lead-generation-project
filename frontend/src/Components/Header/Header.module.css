@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 8rem;
+  padding: 10px 12rem;
   background-color: var(--color-white);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: sticky;
@@ -58,6 +58,7 @@
 
 .dropdownContentAvatar {
   top: 4.4rem;
+  align-items: flex-start;
 }
 
 .dropdownContentAvatar button {
@@ -69,7 +70,9 @@
   font-size: 1.3rem;
   font-weight: bold;
   background-color: var(--color-white);
+  width: 100%;
   cursor: pointer;
+  text-align: left;
 }
 
 .dropdownContent button:hover {
@@ -84,6 +87,7 @@
   transition: background-color 0.3s;
   font-size: 1.3rem;
   font-weight: bold;
+  width: 100%;
 }
 
 .dropdownContent a:hover {
@@ -99,6 +103,7 @@
 
 .avatarContainer {
   position: relative;
+  margin: 0 2rem;
 }
 
 .avatar {

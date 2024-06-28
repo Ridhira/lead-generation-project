@@ -1,4 +1,5 @@
 import axios from "axios";
+import helper from "../utility/helper";
 
 const UserLogin = async (userInfo) => {
   try {
@@ -83,4 +84,32 @@ const ResetPassword = async (userInfo, email) => {
   }
 };
 
-export { UserLogin, UserSignup, SendOTP, ResetPassword };
+const UpdateUserPassword = async (userPassword) => {
+  try {
+    const res = await axios.put(
+      `http://localhost:8080/auth/update-password`,
+      {
+        email: userPassword.email,
+        oldPassword: userPassword.oldPassword,
+        newPassword: userPassword.newPassword,
+      },
+      {
+        headers: helper.GetTokenHeader(),
+      }
+    );
+    return res.data;
+  } catch (error) {
+    console.log(error);
+    if (error.response) {
+      return error.response.data;
+    } else {
+      return {
+        success: false,
+        message: "Something went wrong. Try Again",
+        status: 900,
+      };
+    }
+  }
+};
+
+export { UserLogin, UserSignup, SendOTP, ResetPassword, UpdateUserPassword };

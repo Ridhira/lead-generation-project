@@ -6,3 +6,11 @@
   font-weight: 600;
   margin-top: 0.5rem;
 }
+
+.error_text_center {
+  text-align: center;
+  font-size: 1.4rem;
+  color: var(--color-error);
+  font-weight: 600;
+  margin-top: 0.5rem;
+}

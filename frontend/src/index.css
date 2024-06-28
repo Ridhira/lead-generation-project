@@ -23,3 +23,10 @@ html {
 body {
   font-family: "Poppins";
 }
+
+/* @ HIDE ARROWS FROM NUMBER INPUT FIELD */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
