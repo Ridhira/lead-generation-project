@@ -5,7 +5,7 @@ const PageLoader = () => {
   return (
     <Fragment>
       <div className={styles.loaderContainer}>
-        <div className={styles.loader}>Loading...</div>
+        <div className={styles.loader}>&nbsp;</div>
       </div>
     </Fragment>
   );

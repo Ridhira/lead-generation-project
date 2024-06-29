@@ -89,6 +89,9 @@ const ProfilePage = () => {
 
   return (
     <Fragment>
+      <div className="primary__heading">
+        <h4>Profile</h4>
+      </div>
       <div className={styles.profile_container}>
         <div className={styles.image_container}>
           <img src={userImage} alt="User Image" />

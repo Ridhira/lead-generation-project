@@ -3,6 +3,7 @@
   --color-white: #fff;
   --color-primary: #0056b3;
   --color-secondary: #12457c;
+  --color-drawer: #161616;
   --color-grey: #ccc;
   --color-success: #008000;
   --color-error: #ff0000;
@@ -29,4 +30,10 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+.primary__heading {
+  color: var(--color-primary);
+  font-size: 5rem;
+  font-weight: 600;
 }

@@ -1,10 +1,11 @@
 import axios from "axios";
 import helper from "../utility/helper";
+const APP_END_POINT = import.meta.env.VITE_APP_API_URL;
 
 const CreateUserProfile = async (userProfile) => {
   try {
     const res = await axios.post(
-      `http://localhost:8080/profile/create-user-profile`,
+      `${APP_END_POINT}profile/create-user-profile`,
       {
         dob: userProfile.dob, // YYYY-MM-DD
         phone: userProfile.phone,
@@ -34,7 +35,7 @@ const CreateUserProfile = async (userProfile) => {
 const GetUserProfile = async () => {
   try {
     const res = await axios.post(
-      `http://localhost:8080/profile/get-user-profile`,
+      `${APP_END_POINT}profile/get-user-profile`,
       {
         user_id: helper.GetUserId(),
       },

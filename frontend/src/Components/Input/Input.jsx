@@ -19,7 +19,6 @@ const InputText = ({
   onInput = () => {},
   placeholder = "",
   disabled = false,
-  userValue = "",
 }) => {
   return (
     <Fragment>
@@ -29,7 +28,7 @@ const InputText = ({
           type={type}
           id={id}
           name={name}
-          value={value?.[name] || userValue}
+          value={value?.[name]}
           onChange={onChange}
           onInput={onInput}
           readOnly={readOnly}

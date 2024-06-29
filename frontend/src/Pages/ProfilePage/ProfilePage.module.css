@@ -1,8 +1,22 @@
+.profile_head {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile_head h4 {
+  font-size: 4rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-top: 5rem;
+  color: var(--color-primary);
+}
+
 .profile_container {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  max-width: 140rem;
+  max-width: 130rem;
   margin: auto;
   padding-top: 8rem;
   gap: 10%;
@@ -26,7 +40,6 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   column-gap: 5rem;
-  width: 50%;
 }
 
 .submitBtn {
@@ -39,4 +52,33 @@
   width: 100%;
   grid-column: 1/-1;
   text-align: center;
+}
+
+@media (max-width: 1200px) {
+  .profile_container {
+    flex-direction: column;
+    align-items: center;
+    padding: 4rem 0;
+    gap: 5rem;
+  }
+
+  .profile_head h4 {
+    font-size: 3rem;
+    margin-top: 3rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .image_container img {
+    width: 20rem;
+    height: 20rem;
+  }
+
+  .input_container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .submitBtn {
+    margin-top: 0;
+  }
 }

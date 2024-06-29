@@ -1,9 +1,11 @@
 import axios from "axios";
 import helper from "../utility/helper";
 
+const APP_END_POINT = import.meta.env.VITE_APP_API_URL;
+
 const UserLogin = async (userInfo) => {
   try {
-    const res = await axios.post(`http://localhost:8080/auth/login`, {
+    const res = await axios.post(`${APP_END_POINT}auth/login`, {
       email: userInfo.email,
       password: userInfo.password,
     });
@@ -24,7 +26,7 @@ const UserLogin = async (userInfo) => {
 
 const UserSignup = async (userInfo) => {
   try {
-    const res = await axios.post(`http://localhost:8080/auth/signup`, {
+    const res = await axios.post(`${APP_END_POINT}auth/signup`, {
       name: userInfo.userName,
       email: userInfo.email,
       password: userInfo.password,
@@ -46,7 +48,7 @@ const UserSignup = async (userInfo) => {
 
 const SendOTP = async (userEmail) => {
   try {
-    const res = await axios.post(`http://localhost:8080/auth/send-otp`, {
+    const res = await axios.post(`${APP_END_POINT}auth/send-otp`, {
       email: userEmail,
     });
     return res.data;
@@ -65,7 +67,7 @@ const SendOTP = async (userEmail) => {
 
 const ResetPassword = async (userInfo, email) => {
   try {
-    const res = await axios.put(`http://localhost:8080/auth/reset-password`, {
+    const res = await axios.put(`${APP_END_POINT}auth/reset-password`, {
       email: email,
       otp: userInfo.otp,
       newPassword: userInfo.password,
@@ -87,7 +89,7 @@ const ResetPassword = async (userInfo, email) => {
 const UpdateUserPassword = async (userPassword) => {
   try {
     const res = await axios.put(
-      `http://localhost:8080/auth/update-password`,
+      `${APP_END_POINT}auth/update-password`,
       {
         email: userPassword.email,
         oldPassword: userPassword.oldPassword,
