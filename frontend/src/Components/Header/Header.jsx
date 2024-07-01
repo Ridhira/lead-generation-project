@@ -143,7 +143,7 @@ const Header = () => {
                   <Link
                     to={item.path}
                     className={styles.drawerItem}
-                    key={item.path}
+                    key={Math.random()}
                   >
                     {item.icon}&nbsp;&nbsp;&nbsp;{item.text}
                   </Link>

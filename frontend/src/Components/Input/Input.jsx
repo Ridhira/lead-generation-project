@@ -121,7 +121,7 @@ const InputFile = ({ id, name, value, onChange, error, label }) => {
 const InputDate = ({ id, name, value, onChange, error, label }) => {
   const [val, setVal] = useState();
 
-  let userDob = new Date(value.dob.split("T")[0]);
+  let userDob = new Date(value?.dob?.split("T")[0]);
 
   const formatNumber = (num) => {
     return num < 10 ? `0${num}` : `${num}`;

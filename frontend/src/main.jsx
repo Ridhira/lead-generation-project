@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ProtectedRoute from "./utility/ProtectedRoute.jsx";
-import PageLoader from "./Components/PageLoader/PageLoader.jsx";
+import { PageLoader } from "./Components/PageLoader/PageLoader.jsx";
 import Header from "./Components/Header/Header";
 import { Provider } from "react-redux";
 import { store } from "./store.js";

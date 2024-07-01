@@ -11,4 +11,14 @@ const PageLoader = () => {
   );
 };
 
-export default PageLoader;
+const ApiLoader = () => {
+  return (
+    <Fragment>
+      <div className={styles.loaderContainer_api}>
+        <div className={styles.loader_api}>&nbsp;</div>
+      </div>
+    </Fragment>
+  );
+};
+
+export { PageLoader, ApiLoader };

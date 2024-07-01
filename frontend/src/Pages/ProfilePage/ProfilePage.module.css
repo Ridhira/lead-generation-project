@@ -31,7 +31,7 @@
   height: 30rem;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid var(--color-grey);
+  /* border: 3px solid var(--color-grey); */
   box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
     rgba(0, 0, 0, 0.22) 0px 15px 12px;
 }
@@ -45,7 +45,7 @@
 .submitBtn {
   grid-column: 1/-1;
   text-align: center;
-  margin-top: 3rem;
+  margin-top: 2rem;
 }
 
 .error_container {

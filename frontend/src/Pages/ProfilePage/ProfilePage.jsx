@@ -8,31 +8,40 @@ import {
 } from "../../Components/Input/Input";
 import Button from "../../Components/Buttons/Button";
 import helper from "../../utility/helper";
-import { profileFormValidation } from "../../utility";
 import ErrorText from "../../Components/ErrorText/ErrorText";
-import { CreateUserProfile, GetUserProfile } from "../../services/UserProfile";
+import {
+  CreateUserProfile,
+  GetUserProfile,
+  uploadUserImage,
+} from "../../services/UserProfile";
 import { useDispatch, useSelector } from "react-redux";
 import { UPDATE } from "../../reducers/profileSlice";
 import { Toaster } from "../../utility/Toast";
-
-const userImage =
-  "https://www.josejeuland.com/wp-content/uploads/2022/04/headshotindoor.jpg";
+import _ from "lodash";
+import { ApiLoader } from "../../Components/PageLoader/PageLoader";
 
 const ProfilePage = () => {
   const dispatch = useDispatch();
 
+  const [userImage, setUserImage] = useState(null);
   const [errors, setErrors] = useState();
   const [serverError, setServerError] = useState();
   const { userprofile } = useSelector((state) => state.profile);
+  const [isSubmitEnabled, setIsSubmitEnabled] = useState(false);
+  const [showLoader, setShowLoader] = useState(false);
   const [formData, setFormData] = useState({
-    name: helper.GetUserFullName(),
-    email: helper.GetUserEmail(),
     dob: "",
     phone: "",
     designation: "",
     description: "",
     address: "",
+    image: "",
   });
+
+  const defaultData = {
+    name: helper.GetUserFullName(),
+    email: helper.GetUserEmail(),
+  };
 
   // ! HANDLE CHANGE FUNCTION
   const handleChange = (e) => {
@@ -43,24 +52,35 @@ const ProfilePage = () => {
     });
   };
 
-  // @ SUBMIT BUTTON HANDLER
+  // @ FORM SUBMITTED HANDLER
   const submitBtnHandler = async (e) => {
     e.preventDefault();
-    const isValid = profileFormValidation(formData, setErrors);
-    if (isValid) {
-      const result = await CreateUserProfile(formData);
-      console.log("result====>", result);
-      if (result.success) {
-        console.log("Indise if clock");
-        Toaster().success("Profile Updated Successfully");
-      } else {
-        setServerError(result.message);
+    setShowLoader(true);
+    let resultForm;
+    let resultImage;
+    if (isSubmitEnabled) {
+      resultForm = await CreateUserProfile(formData);
+    }
+
+    if (userImage !== null) {
+      const result = await uploadUserImage(userImage);
+      if (result.url) {
+        resultImage = await CreateUserProfile({ image: result.url });
       }
+    }
+
+    if (resultForm.success || resultImage.success) {
+      Toaster().success("Profile Updated Successfully");
+      setShowLoader(false);
+    }
+
+    if (!isSubmitEnabled && userImage === null) {
+      setServerError("At least one input field is required ");
+      setShowLoader(false);
     }
   };
 
   // # GET USER PROFILE
-
   const GetUserprofileData = async () => {
     const result = await GetUserProfile();
     if (result.success) {
@@ -83,25 +103,47 @@ const ProfilePage = () => {
         address: userprofile[0].address,
         description: userprofile[0].description,
         designation: userprofile[0].designation,
+        image: userprofile[0].image,
       }));
     }
   }, [userprofile]);
 
+  useEffect(() => {
+    // Check if any value is not empty using lodash
+    const checkValues = () => _.some(formData, _.negate(_.isEmpty));
+    setIsSubmitEnabled(checkValues());
+  }, [formData]);
+
+  // @ JSX START
   return (
     <Fragment>
-      <div className="primary__heading">
+      <div className={styles.profile_head}>
         <h4>Profile</h4>
       </div>
       <div className={styles.profile_container}>
         <div className={styles.image_container}>
-          <img src={userImage} alt="User Image" />
+          {userImage ? (
+            <img
+              src={userImage ? URL.createObjectURL(userImage) : ""}
+              alt="User Image"
+            />
+          ) : (
+            <img
+              src={
+                formData?.image ||
+                "https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png"
+              }
+              alt="User Image"
+            />
+          )}
         </div>
+
         <div className={styles.input_container}>
           <InputText
             type="text"
             id="name"
             name="name"
-            value={formData}
+            value={defaultData}
             onChange={() => {}}
             readOnly={true}
             label="Full Name"
@@ -112,7 +154,7 @@ const ProfilePage = () => {
             type="email"
             id="email"
             name="email"
-            value={formData}
+            value={defaultData}
             onChange={() => {}}
             label="Email"
             disabled={true}
@@ -154,8 +196,7 @@ const ProfilePage = () => {
           <InputFile
             id="image"
             name="image"
-            value={formData}
-            onChange={() => {}}
+            onChange={(e) => setUserImage(e.target.files[0])}
             label="Upload Image"
           />
 
@@ -184,6 +225,7 @@ const ProfilePage = () => {
             {serverError && (
               <ErrorText errorText={serverError} text_align_center={true} />
             )}
+            {showLoader && <ApiLoader />}
           </div>
 
           <div className={styles.submitBtn}>

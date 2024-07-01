@@ -3,7 +3,6 @@ import "react-toastify/dist/ReactToastify.css";
 
 export const Toaster = () => {
   function success(message) {
-    console.log("message--->", message);
     return toast.success(message, {
       position: "top-right",
       autoClose: 3000,
