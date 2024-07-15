@@ -1,75 +1,47 @@
-const UserProfile = require("../Modals/UserProfile");
+const { ERRORS } = require("../config/config");
+const db = require("../config/db");
+const QueryFn = require("../Queries/profileQueries");
+
+let fn = [];
 
 // # COUNT       --> 1
 // # DESCRIPTION --> CREATE USER PROFILE
 // # ROUTE       --> profile/create-user-profile
 // # METHOD      --> POST
-const CreateUserProfile = async (req, res) => {
-  try {
-    const { dob, phone, designation, description, image, address } = req.body;
-    const user = req.user;
-
-    const userInfo = {
-      user_id: user._id,
-      dob,
-      phone,
-      designation,
-      description,
-      image,
-      address,
-    };
-
-    const profileModal = await UserProfile.findOneAndUpdate(
-      { user_id: user._id },
-      userInfo,
-      { new: true, upsert: true, setDefaultsOnInsert: true }
-    );
-
-    // first parameter--> try to find document by user_id
-    // second parameter --> document data
-    // new  --> return the updated document
-    // upsert --->  Create a new document if no document matches the query.
-    // setDefaultsOnInsert--> Apply the defaults specified in the schema if a new document is created.
-
-    await profileModal.save();
-    res
-      .status(201)
-      .json({ message: "Profile data saved successfully", success: true });
-  } catch (err) {
-    console.log("error--->", err);
-    res.status(500).json({ message: "Internal server error", success: false });
-  }
+fn.CreateUserProfile = async (req, res) => {
+  return new Promise(async (resolve) => {
+    let input = req.body;
+    let modal = JSON.parse(JSON.stringify(input));
+    const [procedureQuery, errorQuery] = await QueryFn.CreateUserProfile(modal);
+    const result = await db.Execute(procedureQuery, errorQuery);
+    console.log("result", result);
+    if (result.status !== ERRORS.OK) return resolve(result);
+    return resolve({
+      status: ERRORS.OK,
+      message: "Profile Created Successfully",
+    });
+  });
 };
 
-// # COUNT       --> 2
-// # DESCRIPTION --> GET USER PROFILE
-// # ROUTE       --> profile/get-user-profile
-// # METHOD      --> POST
-const GetUserProfile = async (req, res) => {
-  try {
-    const { user_id } = req.body;
-    const profile = await UserProfile.findOne({ user_id });
+// @ COUNT       --> 2
+// @ DESCRIPTION --> GET USER PROFILE
+// @ ROUTE       --> profile/get-user-profile/:id
+// @ METHOD      --> GET
+fn.GetUserProfile = async (req, res) => {
+  return new Promise(async (resolve) => {
+    const user_id = req.params.id;
+    const [procedureQuery, errorQuery] = await QueryFn.GetUserProfile({
+      user_id,
+    });
+    const result = await db.Execute(procedureQuery, errorQuery);
 
-    if (profile) {
-      res.status(201).json({
-        message: "Profile fetched Successfully",
-        success: true,
-        data: [profile],
-      });
-    } else {
-      res.status(403).json({
-        message: "Profile not found",
-        success: false,
-        data: [],
-      });
-    }
-  } catch (err) {
-    console.log("error--->", err);
-    res.status(500).json({ message: "Internal server error", success: false });
-  }
+    if (result.status !== ERRORS.OK) return resolve(result);
+
+    return resolve({
+      status: ERRORS.OK,
+      data: result.data[0],
+    });
+  });
 };
 
-module.exports = {
-  CreateUserProfile,
-  GetUserProfile,
-};
+module.exports = fn;

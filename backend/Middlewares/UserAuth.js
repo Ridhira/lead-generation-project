@@ -1,5 +1,4 @@
 const jwt = require("jsonwebtoken");
-const User = require("../Modals/user");
 
 const ensureAuthenticated = async (req, res, next) => {
   const auth = req.headers["authorization"];
@@ -13,7 +12,6 @@ const ensureAuthenticated = async (req, res, next) => {
   try {
     const decoded = jwt.verify(auth, process.env.JWT_SECRET);
 
-    // req.user = await User.findById(decoded._id).select("-password");
     req.user = decoded;
     next();
   } catch (err) {

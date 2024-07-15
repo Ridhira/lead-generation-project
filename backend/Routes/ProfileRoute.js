@@ -1,20 +1,7 @@
 //  ! IMPORTS
 const express = require("express");
-// const {
-//   signupValidation,
-//   loginValidation,
-//   updatePasswordValidation,
-//   emailValidation,
-//   otpValidation,
-// } = require("../Middlewares/AuthValidation");
-
+const controller = require("../Controllers/ProfileController");
 const { ensureAuthenticated } = require("../Middlewares/UserAuth");
-
-const {
-  CreateUserProfile,
-  GetUserProfile,
-} = require("../Controllers/ProfileController");
-
 const router = express.Router();
 
 // $ COUNT       --> 1
@@ -22,7 +9,26 @@ const router = express.Router();
 // $ ROUTE       --> profile/create-user-profile
 // $ METHOD      --> post
 
-router.post("/create-user-profile", ensureAuthenticated, CreateUserProfile);
-router.post("/get-user-profile", ensureAuthenticated, GetUserProfile);
+router.post(
+  "/create-user-profile",
+  ensureAuthenticated,
+  async function (req, res, next) {
+    const result = await controller.CreateUserProfile(req);
+    res.send(result);
+  }
+);
+
+// @ COUNT       --> 2
+// @ DESCRIPTION --> GET USER PROFILE
+// @ ROUTE       --> profile/get-user-profile
+// @ METHOD      --> get
+router.get(
+  "/get-user-profile/:id",
+  ensureAuthenticated,
+  async function (req, res, next) {
+    const result = await controller.GetUserProfile(req);
+    res.send(result);
+  }
+);
 
 module.exports = router;
