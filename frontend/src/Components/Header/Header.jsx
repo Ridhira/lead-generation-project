@@ -21,11 +21,11 @@ const Header = () => {
   };
 
   // $ LOGOUT HANDLER
-  const logoutClickHandler = (e) => {
-    e.preventDefault();
-    helper.RemoveItem("user");
-    navigate("/");
-  };
+  // const logoutClickHandler = (e) => {
+  //   e.preventDefault();
+  //   helper.RemoveItem("user");
+  //   navigate("/");
+  // };
 
   const backgroundColor = helper.GetRandomColor();
   const textColor = helper.IsLightColor(backgroundColor) ? "#000" : "#FFF";
@@ -74,8 +74,11 @@ const Header = () => {
               Home
             </Link>
             <div className={styles.dropdown}>
-              <Link to="#" className={styles.navLink}>
-                Services
+              <Link
+                to="https://forms.zohopublic.com/animesh1/form/LeadRegistrationForm/formperma/OgnolVVTVAz-Z5Wp6z7iZwRsC1PLuGKP3f-h9TymS88"
+                className={styles.navLink}
+              >
+                Add Leads
               </Link>
               {/* <div className={styles.dropdownContent}>
                 <Link to="#" className={styles.dropdownItem}>
@@ -97,7 +100,8 @@ const Header = () => {
                 className={styles.avatar}
                 style={{ backgroundColor, color: textColor }}
               >
-                {helper.GetUserNameInitials()}
+                {/* {helper.GetUserNameInitials()} */}
+                {"US"}
               </div>
               <div className={styles.dropdownContentAvatar}>
                 <Link to="/user-profile" className={styles.dropdownItem}>
@@ -115,6 +119,7 @@ const Header = () => {
               </div>
             </div>
           </div>
+
           <div
             className={`${styles.hamburger} ${drawerOpen ? styles.active : ""}`}
             onClick={toggleDrawer}
@@ -135,7 +140,8 @@ const Header = () => {
                   className={styles.avatar}
                   style={{ backgroundColor, color: textColor }}
                 >
-                  {helper.GetUserNameInitials()}
+                  {/* {helper.GetUserNameInitials()} */}
+                  {"US"}
                 </div>
               </div>
               {mobileNavigation.map((item) => {

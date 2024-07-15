@@ -8,6 +8,7 @@ import { UserLogin } from "../../services/LoginSignup";
 import ErrorText from "../../Components/ErrorText/ErrorText";
 import { useNavigate } from "react-router-dom";
 import helper from "../../utility/helper";
+import login_image from "../../assets/login_screen_image.jpeg";
 
 const LoginPage = () => {
   const [errors, setErrors] = useState();
@@ -47,31 +48,34 @@ const LoginPage = () => {
   return (
     <Fragment>
       <div className={styles.loginContainer}>
-        <div className={styles.loginBox}>
-          <h2>Login</h2>
-          <form>
-            <InputText
-              type="email"
-              id="email"
-              name="email"
-              value={formData}
-              onChange={handleChange}
-              error={errors}
-              label="Email"
-            />
-            <InputPassword
-              id="password"
-              name="password"
-              value={formData}
-              onChange={handleChange}
-              error={errors}
-              label="Password"
-            />
-            {serverError && <ErrorText errorText={serverError} />}
-            <Navigation text="Forgot Password?" path="/reset-password" />
-            <Button btnText="Login" onClick={submitBtnClickHandler} />
-          </form>
-          <Navigation text="Don't have an account? Sign Up" path="/signup" />
+        <img src={login_image} alt="login_image" />
+        <div className={styles.loginContainer2}>
+          <div className={styles.loginBox}>
+            <h2>Login</h2>
+            <form>
+              <InputText
+                type="email"
+                id="email"
+                name="email"
+                value={formData}
+                onChange={handleChange}
+                error={errors}
+                label="Email"
+              />
+              <InputPassword
+                id="password"
+                name="password"
+                value={formData}
+                onChange={handleChange}
+                error={errors}
+                label="Password"
+              />
+              {serverError && <ErrorText errorText={serverError} />}
+              <Navigation text="Forgot Password?" path="/reset-password" />
+              <Button btnText="Login" onClick={submitBtnClickHandler} />
+            </form>
+            <Navigation text="Don't have an account? Sign Up" path="/signup" />
+          </div>
         </div>
       </div>
     </Fragment>

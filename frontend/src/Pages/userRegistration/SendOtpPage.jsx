@@ -101,11 +101,6 @@ const SendOtpPage = () => {
                 onChange={handleChange}
                 error={errors}
                 label="OTP"
-                onInput={(e) => {
-                  if (e.target.value.length > 6) {
-                    e.target.value = e.target.value.slice(0, 6);
-                  }
-                }}
               />
 
               <InputPassword
