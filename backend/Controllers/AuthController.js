@@ -114,7 +114,6 @@ fn.updatePassword = async (req, res) => {
   return new Promise(async (resolve) => {
     const input = req.body;
     let modal = JSON.parse(JSON.stringify(input));
-    console.log("MOdal-->", modal);
 
     let resultFindUser = await helper.FindUser(req);
 
@@ -129,14 +128,11 @@ fn.updatePassword = async (req, res) => {
     }
 
     let userInfo = resultFindUser.data;
-    console.log("userInfo", userInfo);
 
     let pwsValid = await utilFn.ComparePassword(
       modal.oldPassword,
       userInfo[0].password
     );
-
-    console.log("pwsValid", pwsValid);
 
     if (!pwsValid) {
       return resolve({
@@ -147,14 +143,11 @@ fn.updatePassword = async (req, res) => {
 
     let pwd = await utilFn.CryptPassword(modal.newPassword);
 
-    console.log("updated Password,", pwd);
-
     const obj = {
       body: { password: pwd.data, user_id: userInfo[0].user_id },
     };
 
     let result = await helper.UpdateUser(obj);
-    console.log("result-->", result);
     return resolve({
       ...result,
       status: ERRORS.OK,
@@ -171,8 +164,6 @@ fn.sendOtp = async (req, res) => {
   return new Promise(async (resolve) => {
     let resultFindUser = await helper.FindUser(req);
 
-    console.log("resultFindUser---?", resultFindUser);
-
     if (
       resultFindUser.status !== ERRORS.OK ||
       resultFindUser.data.length === 0
@@ -188,8 +179,6 @@ fn.sendOtp = async (req, res) => {
       };
 
       let result = await helper.UpdateUser(obj);
-
-      console.log("result", result);
 
       if (result.status === ERRORS.OK) {
         return resolve({
@@ -232,7 +221,6 @@ fn.resetPassword = async (req, res) => {
     } else {
       let pwd = await utilFn.CryptPassword(modal.newPassword);
       let otp = await utilFn.GenerateUniqueOTP();
-      console.log("pwd", pwd);
       const obj = {
         body: {
           otp: otp,
