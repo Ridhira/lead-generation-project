@@ -10,6 +10,8 @@ import { useNavigate } from "react-router-dom";
 import helper from "../../utility/helper";
 import login_image from "../../assets/login_screen_image.jpeg";
 
+const SUCCESS = import.meta.env.VITE_APP_SUCCESS;
+
 const LoginPage = () => {
   const [errors, setErrors] = useState();
   const [serverError, setServerError] = useState("");
@@ -26,11 +28,11 @@ const LoginPage = () => {
     const isValid = loginFormValidation(formData, setErrors);
     if (isValid) {
       const result = await UserLogin(formData);
-      await helper.SetItem("user", result);
-      if (result.success) {
+      if (result.status == SUCCESS) {
+        await helper.SetItem("user", result);
         navigate("/dashboard");
       } else {
-        setServerError(result.message);
+        setServerError(result.statusText);
       }
     }
   };

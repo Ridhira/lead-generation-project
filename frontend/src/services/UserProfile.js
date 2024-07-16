@@ -6,10 +6,13 @@ const CLOUD_NAME = import.meta.env.VITE_APP_CLOUD_NAME;
 const IMAGE_URL = import.meta.env.VITE_APP_CLOUD_IMAGE_URL;
 
 const CreateUserProfile = async (userProfile) => {
+  const user_id = helper.GetUserId();
+
   try {
     const res = await axios.post(
       `${APP_END_POINT}profile/create-user-profile`,
       {
+        user_id: user_id,
         dob: userProfile?.dob, // YYYY-MM-DD
         phone: userProfile?.phone,
         designation: userProfile?.designation,
@@ -36,17 +39,14 @@ const CreateUserProfile = async (userProfile) => {
 };
 
 const GetUserProfile = async () => {
+  const user_id = helper.GetUserId();
   try {
-    const res = await axios.post(
-      `${APP_END_POINT}profile/get-user-profile`,
-      {
-        user_id: helper.GetUserId(),
-      },
+    const res = await axios.get(
+      `${APP_END_POINT}profile/get-user-profile/${user_id}`,
       {
         headers: helper.GetTokenHeader(),
       }
     );
-    console.log("res", res.data);
     return res.data;
   } catch (error) {
     console.log(error.response);
@@ -75,6 +75,7 @@ const uploadUserImage = async (image) => {
     });
 
     const cloudData = await res.json();
+
     return cloudData;
   } catch (error) {
     console.log(error);

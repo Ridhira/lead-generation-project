@@ -30,7 +30,6 @@ fn.CryptPassword = async (input) => {
 };
 
 fn.ComparePassword = async (input, hashWord) => {
-  console.log("Password-->", input, hashWord);
   return new Promise((resolve) => {
     bcrypt.compare(input, hashWord, function (err, match) {
       return resolve(match);

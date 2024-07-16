@@ -21,11 +21,11 @@ const Header = () => {
   };
 
   // $ LOGOUT HANDLER
-  // const logoutClickHandler = (e) => {
-  //   e.preventDefault();
-  //   helper.RemoveItem("user");
-  //   navigate("/");
-  // };
+  const logoutClickHandler = (e) => {
+    e.preventDefault();
+    helper.RemoveItem("user");
+    navigate("/");
+  };
 
   const backgroundColor = helper.GetRandomColor();
   const textColor = helper.IsLightColor(backgroundColor) ? "#000" : "#FFF";
@@ -100,8 +100,7 @@ const Header = () => {
                 className={styles.avatar}
                 style={{ backgroundColor, color: textColor }}
               >
-                {/* {helper.GetUserNameInitials()} */}
-                {"US"}
+                {helper.GetUserNameInitials()}
               </div>
               <div className={styles.dropdownContentAvatar}>
                 <Link to="/user-profile" className={styles.dropdownItem}>
@@ -140,8 +139,7 @@ const Header = () => {
                   className={styles.avatar}
                   style={{ backgroundColor, color: textColor }}
                 >
-                  {/* {helper.GetUserNameInitials()} */}
-                  {"US"}
+                  {helper.GetUserNameInitials()}
                 </div>
               </div>
               {mobileNavigation.map((item) => {

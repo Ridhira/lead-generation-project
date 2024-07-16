@@ -6,6 +6,10 @@ import { updatePasswordValidation } from "../../utility";
 import { UpdateUserPassword } from "../../services/LoginSignup";
 import { Toaster } from "../../utility/Toast";
 import ErrorText from "../../Components/ErrorText/ErrorText";
+import helper from "../../utility/helper";
+import { useNavigate } from "react-router-dom";
+
+const SUCCESS = import.meta.env.VITE_APP_SUCCESS;
 
 const UpdatePassword = () => {
   const [errors, setErrors] = useState();
@@ -16,6 +20,7 @@ const UpdatePassword = () => {
     newPassword: "",
     confirmPassword: "",
   });
+  const navigate = useNavigate();
 
   // ! HANDLE CHANGE FUNCTION
   const handleChange = (e) => {
@@ -31,18 +36,17 @@ const UpdatePassword = () => {
     setServerError();
     const isValid = updatePasswordValidation(formData, setErrors);
     if (isValid) {
-      console.log("formData", formData);
       const result = await UpdateUserPassword(formData);
-      console.log("result", result);
-      if (result.success) {
-        Toaster().success("Password Updated Successfully");
+      if (result.status == SUCCESS) {
+        Toaster().success("Password Updated Successfully. Please Login Again");
+        helper.RemoveItem("user");
+        navigate("/");
       } else {
-        setServerError(result.message);
+        // Toaster().error(result.statusText);
+        setServerError(result.statusText);
       }
     }
   };
-
-  console.log("errors", errors);
 
   return (
     <Fragment>

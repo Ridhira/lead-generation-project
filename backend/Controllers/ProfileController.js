@@ -14,11 +14,10 @@ fn.CreateUserProfile = async (req, res) => {
     let modal = JSON.parse(JSON.stringify(input));
     const [procedureQuery, errorQuery] = await QueryFn.CreateUserProfile(modal);
     const result = await db.Execute(procedureQuery, errorQuery);
-    console.log("result", result);
     if (result.status !== ERRORS.OK) return resolve(result);
     return resolve({
       status: ERRORS.OK,
-      message: "Profile Created Successfully",
+      statusText: "Profile Created Successfully",
     });
   });
 };
@@ -39,6 +38,7 @@ fn.GetUserProfile = async (req, res) => {
 
     return resolve({
       status: ERRORS.OK,
+      statusText: "Success",
       data: result.data[0],
     });
   });

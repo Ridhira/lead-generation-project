@@ -5,6 +5,7 @@ import { BiNotepad } from "react-icons/bi";
 import { FaRegComments } from "react-icons/fa";
 import { FaHandHoldingUsd } from "react-icons/fa";
 import { GiProgression } from "react-icons/gi";
+import { useSelector } from "react-redux";
 
 const Dashboard = () => {
   const data = [
@@ -17,6 +18,9 @@ const Dashboard = () => {
     { id: 7, text: "ladder incentive", value: 12 },
     { id: 8, text: "total earning", value: 12 },
   ];
+
+  const { userprofile } = useSelector((state) => state.profile);
+  console.log("user", userprofile);
 
   const handleDownload = (e, type) => {
     e.preventDefault();
@@ -76,20 +80,20 @@ const Dashboard = () => {
             height="315"
             src="https://www.youtube.com/embed/qzkTw13dpO8?si=y9tfb8n5JEmFXARo"
             title="YouTube video player"
-            frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+            frameBorder="0"
           ></iframe>
           <iframe
             width="560"
             height="315"
             src="https://www.youtube.com/embed/rn5AOpbOhjA?si=04_ExmZa6Bk1mJGt"
             title="YouTube video player"
-            frameborder="0"
+            frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
           ></iframe>
         </div>
       </div>

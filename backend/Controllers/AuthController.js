@@ -58,8 +58,8 @@ fn.login = async (req) => {
     );
 
     let data = {
-      message: "Login successfully",
-      success: true,
+      status: ERRORS.OK,
+      statusText: "Login successfully",
       authToken: jwtToken,
       email_address: userInfo[0].email_address,
       name: userInfo[0].name,
@@ -97,7 +97,11 @@ fn.signup = async (req, res) => {
       };
     }
 
-    return resolve(result);
+    return resolve({
+      ...result,
+      status: ERRORS.OK,
+      statusText: "User Created Successfully",
+    });
   });
 };
 
@@ -110,6 +114,7 @@ fn.updatePassword = async (req, res) => {
   return new Promise(async (resolve) => {
     const input = req.body;
     let modal = JSON.parse(JSON.stringify(input));
+    console.log("MOdal-->", modal);
 
     let resultFindUser = await helper.FindUser(req);
 
@@ -124,11 +129,14 @@ fn.updatePassword = async (req, res) => {
     }
 
     let userInfo = resultFindUser.data;
+    console.log("userInfo", userInfo);
 
     let pwsValid = await utilFn.ComparePassword(
       modal.oldPassword,
       userInfo[0].password
     );
+
+    console.log("pwsValid", pwsValid);
 
     if (!pwsValid) {
       return resolve({
@@ -139,12 +147,19 @@ fn.updatePassword = async (req, res) => {
 
     let pwd = await utilFn.CryptPassword(modal.newPassword);
 
+    console.log("updated Password,", pwd);
+
     const obj = {
-      body: { password: pwd.data, user_id: req.user.id },
+      body: { password: pwd.data, user_id: userInfo[0].user_id },
     };
 
     let result = await helper.UpdateUser(obj);
-    return resolve(result);
+    console.log("result-->", result);
+    return resolve({
+      ...result,
+      status: ERRORS.OK,
+      statusText: "User Updated Successfully",
+    });
   });
 };
 
@@ -155,6 +170,9 @@ fn.updatePassword = async (req, res) => {
 fn.sendOtp = async (req, res) => {
   return new Promise(async (resolve) => {
     let resultFindUser = await helper.FindUser(req);
+
+    console.log("resultFindUser---?", resultFindUser);
+
     if (
       resultFindUser.status !== ERRORS.OK ||
       resultFindUser.data.length === 0
@@ -171,10 +189,11 @@ fn.sendOtp = async (req, res) => {
 
       let result = await helper.UpdateUser(obj);
 
+      console.log("result", result);
+
       if (result.status === ERRORS.OK) {
         return resolve({
-          message: "OTP sent successfully",
-          success: true,
+          statusText: "OTP sent successfully",
           otp: otp,
           status: ERRORS.OK,
         });
@@ -205,14 +224,20 @@ fn.resetPassword = async (req, res) => {
         status: ERRORS.BAD_REQUEST,
         statusText: "Invalid Email address",
       });
+    } else if (modal.otp != resultFindUser.data[0].otp) {
+      return resolve({
+        status: ERRORS.NOT_FOUND,
+        statusText: "Incorrect OTP",
+      });
     } else {
       let pwd = await utilFn.CryptPassword(modal.newPassword);
       let otp = await utilFn.GenerateUniqueOTP();
+      console.log("pwd", pwd);
       const obj = {
         body: {
           otp: otp,
           user_id: resultFindUser.data[0].user_id,
-          password: pwd.password,
+          password: pwd.data,
         },
       };
 
@@ -220,8 +245,7 @@ fn.resetPassword = async (req, res) => {
 
       if (result.status === ERRORS.OK) {
         return resolve({
-          message: "Password Updated Successfully",
-          success: true,
+          statusText: "Password Updated Successfully",
           status: ERRORS.OK,
         });
       } else {

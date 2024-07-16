@@ -37,6 +37,7 @@ const ProfilePage = () => {
     address: "",
     image: "",
   });
+  const SUCCESS = import.meta.env.VITE_APP_SUCCESS;
 
   const defaultData = {
     name: helper.GetUserFullName(),
@@ -69,7 +70,7 @@ const ProfilePage = () => {
       }
     }
 
-    if (resultForm.success || resultImage.success) {
+    if (resultForm?.status == SUCCESS || resultImage?.success) {
       Toaster().success("Profile Updated Successfully");
       setShowLoader(false);
     }
@@ -83,15 +84,13 @@ const ProfilePage = () => {
   // # GET USER PROFILE
   const GetUserprofileData = async () => {
     const result = await GetUserProfile();
-    if (result.success) {
+    if (result.status == SUCCESS) {
       dispatch(UPDATE(result.data[0]));
     }
   };
 
   useEffect(() => {
-    if (userprofile.length === 0) {
-      GetUserprofileData();
-    }
+    GetUserprofileData();
   }, []);
 
   useEffect(() => {
@@ -99,7 +98,7 @@ const ProfilePage = () => {
       setFormData((prevFormData) => ({
         ...prevFormData,
         phone: userprofile[0].phone,
-        dob: userprofile[0].dob,
+        dob: userprofile[0].dob.split("T")[0],
         address: userprofile[0].address,
         description: userprofile[0].description,
         designation: userprofile[0].designation,

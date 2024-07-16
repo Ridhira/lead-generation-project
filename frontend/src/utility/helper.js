@@ -39,7 +39,7 @@ fn.userLoggedIn = () => {
 // $ GET LOGGED IN USER ID
 fn.GetUserId = () => {
   const user = fn.GetItem("user");
-  return user?._id;
+  return user?.user_id;
 };
 
 // % CHECK IF INPUT VALUE IS NULL OR NOT
@@ -84,8 +84,8 @@ fn.GetUserFirstName = () => {
 fn.GetUserEmail = () => {
   const user = fn.GetItem("user");
   if (user) {
-    if (!fn.isNullUndefinedOrEmpty(user.email)) {
-      return fn.capitalizeFirstLetter(user.email);
+    if (!fn.isNullUndefinedOrEmpty(user.email_address)) {
+      return fn.capitalizeFirstLetter(user.email_address);
     }
   }
   return null;

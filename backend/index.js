@@ -5,6 +5,7 @@ const cors = require("cors");
 const AuthRouter = require("./Routes/AuthRouter");
 const ProfileRouter = require("./Routes/ProfileRoute");
 const WebScraperRouter = require("./Routes/WebScraperRouter");
+const colors = require("colors");
 
 const app = express();
 dotenv.config();
@@ -19,5 +20,5 @@ app.use("/profile", ProfileRouter);
 app.use("/web", WebScraperRouter);
 
 app.listen(PORT, () => {
-  console.log(`Server is Running at port ${PORT}`);
+  console.log(`Server is Running at port ${PORT}`.red.bold);
 });

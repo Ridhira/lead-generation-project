@@ -9,6 +9,7 @@ fn.FindUser = async (req) => {
   return new Promise(async (resolve) => {
     let input = req.body;
     let modal = JSON.parse(JSON.stringify(input));
+    console.log("modal,", modal);
     const [procedureQuery, errorQuery] = QueryFn.GetUser(modal);
     const result = await db.Execute(procedureQuery, errorQuery);
     if (result.status !== ERRORS.OK) {
@@ -51,6 +52,7 @@ fn.UpdateUser = async (req) => {
     let input = req.body;
     let modal = JSON.parse(JSON.stringify(input));
     const [procedureQuery, errorQuery] = QueryFn.EditUser(modal);
+    console.log("procedureQuery update User", procedureQuery);
     const result = await db.Execute(procedureQuery, errorQuery);
 
     if (result.status !== ERRORS.OK) {

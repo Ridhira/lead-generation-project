@@ -6,7 +6,7 @@ const APP_END_POINT = import.meta.env.VITE_APP_API_URL;
 const UserLogin = async (userInfo) => {
   try {
     const res = await axios.post(`${APP_END_POINT}auth/login`, {
-      email: userInfo.email,
+      email_address: userInfo.email,
       password: userInfo.password,
     });
 
@@ -28,7 +28,7 @@ const UserSignup = async (userInfo) => {
   try {
     const res = await axios.post(`${APP_END_POINT}auth/signup`, {
       name: userInfo.userName,
-      email: userInfo.email,
+      email_address: userInfo.email,
       password: userInfo.password,
       partner_id: userInfo.partner_id,
     });
@@ -49,7 +49,7 @@ const UserSignup = async (userInfo) => {
 const SendOTP = async (userEmail) => {
   try {
     const res = await axios.post(`${APP_END_POINT}auth/send-otp`, {
-      email: userEmail,
+      email_address: userEmail,
     });
     return res.data;
   } catch (error) {
@@ -68,7 +68,7 @@ const SendOTP = async (userEmail) => {
 const ResetPassword = async (userInfo, email) => {
   try {
     const res = await axios.put(`${APP_END_POINT}auth/reset-password`, {
-      email: email,
+      email_address: email,
       otp: userInfo.otp,
       newPassword: userInfo.password,
     });
@@ -91,7 +91,7 @@ const UpdateUserPassword = async (userPassword) => {
     const res = await axios.put(
       `${APP_END_POINT}auth/update-password`,
       {
-        email: userPassword.email,
+        email_address: userPassword.email,
         oldPassword: userPassword.oldPassword,
         newPassword: userPassword.newPassword,
       },

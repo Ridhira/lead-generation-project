@@ -17,6 +17,7 @@ SET @q = CONCAT('
 select  user_id, 
         name,
 	    password,
+		otp,
         email_address,
 		last_login,
         status

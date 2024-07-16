@@ -3,7 +3,6 @@ const utilFn = require("../utilities/index");
 let QueryFn = [];
 
 QueryFn.CreateUserProfile = (modal) => {
-  console.log(modal);
   return [
     `CALL cp_panel.sp_create_user_profile(
       @err,
@@ -20,7 +19,6 @@ QueryFn.CreateUserProfile = (modal) => {
 };
 
 QueryFn.GetUserProfile = (modal) => {
-  console.log(utilFn.GetDbValue(modal.user_id));
   return [
     `CALL cp_panel.sp_get_user_profile(
       @err,

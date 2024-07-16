@@ -58,7 +58,7 @@ router.post("/send-otp", emailValidation, async function (req, res, next) {
 // // @DESCRIPTION --> reset user password
 // // @ ROUTE      --> auth/reset-password
 // // @ METHOD     --> PUT
-router.post("/reset-password", otpValidation, async function (req, res, next) {
+router.put("/reset-password", otpValidation, async function (req, res, next) {
   const result = await controller.resetPassword(req);
   res.send(result);
 });

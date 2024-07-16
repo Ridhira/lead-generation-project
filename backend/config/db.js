@@ -1,5 +1,4 @@
 // const mongoose = require("mongoose");
-// const colors = require("colors");
 // const dotenv = require("dotenv");
 
 // dotenv.config();
@@ -19,6 +18,7 @@
 
 const mysql = require("mysql2/promise");
 const { DBConfig, ERRORS } = require("./config");
+const colors = require("colors");
 
 var fn = [];
 
@@ -34,11 +34,9 @@ const pool = mysql.createPool({
 async function GetDbPool() {
   try {
     const connection = await pool.getConnection();
-    console.log("threadId: ", connection.threadId);
     return { error: null, client: connection };
   } catch (err) {
     if (err instanceof AggregateError) {
-      console.log("Multiple errors occurred:");
       for (const individualError of err.errors) {
         console.log(individualError.message);
       }
@@ -48,46 +46,6 @@ async function GetDbPool() {
     return { error: err, client: null };
   }
 }
-
-// fn.Execute = async (query) => {
-//   const { error, client } = await GetDbPool();
-
-//   if (error) {
-//     console.log("Error", error);
-//     return { status: ERRORS.NOT_FOUND, statusText: error.message };
-//   }
-
-//   if (client === null) {
-//     return {
-//       status: ERRORS.BAD_REQUEST,
-//       statusText: "Failed Creating Pool",
-//     };
-//   }
-
-//   try {
-//     const results = await client.query(query);
-//     console.log("Result---->", results);
-//     const [procedureResult, errResult] = results;
-//     client.release();
-//     client.end();
-
-//     return {
-//       status: ERRORS.OK,
-//       data: procedureResult,
-//     };
-//   } catch (err) {
-//     client.release();
-//     client.end();
-
-//     let text = err.message;
-//     let status = ERRORS.BAD_REQUEST;
-//     if (err.code === "ER_DUP_ENTRY") {
-//       text = "Duplicate entry";
-//       status = ERRORS.DUPLICATE_ENTRY;
-//     }
-//     return { status: status, statusText: text };
-//   }
-// };
 
 fn.Execute = async (query) => {
   const { error, client } = await GetDbPool();

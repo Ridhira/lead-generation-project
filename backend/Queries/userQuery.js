@@ -18,6 +18,7 @@ QueryFn.CreateUser = (modal) => {
 };
 
 QueryFn.GetUser = (modal) => {
+  console.log("modal form query", modal);
   return [
     `CALL cp_panel.sp_get_user(
     @err,
@@ -29,6 +30,7 @@ QueryFn.GetUser = (modal) => {
 };
 
 QueryFn.EditUser = (modal) => {
+  console.log("User Edit ", modal);
   return [
     `CALL cp_panel.sp_edit_user(
     @err, 
