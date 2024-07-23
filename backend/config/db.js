@@ -19,6 +19,7 @@
 const mysql = require("mysql2/promise");
 const { DBConfig, ERRORS } = require("./config");
 const colors = require("colors");
+const fs = require("fs");
 
 var fn = [];
 
@@ -29,6 +30,7 @@ const pool = mysql.createPool({
   user: DBConfig.user,
   password: DBConfig.password,
   database: DBConfig.database,
+  connectTimeout: 10000, // Increase timeout value (in milliseconds)
 });
 
 async function GetDbPool() {
@@ -43,6 +45,7 @@ async function GetDbPool() {
     } else {
       console.log("Not connected due to error: " + err.message);
     }
+
     return { error: err, client: null };
   }
 }

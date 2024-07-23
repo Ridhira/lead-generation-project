@@ -77,7 +77,6 @@ fn.login = async (req) => {
 fn.signup = async (req, res) => {
   return new Promise(async (resolve) => {
     let input = req.body;
-
     let modal = JSON.parse(JSON.stringify(input));
     delete modal["password"];
 
@@ -97,11 +96,15 @@ fn.signup = async (req, res) => {
       };
     }
 
-    return resolve({
-      ...result,
-      status: ERRORS.OK,
-      statusText: "User Created Successfully",
-    });
+    if (result.status === ERRORS.OK) {
+      return resolve({
+        ...result,
+        status: ERRORS.OK,
+        statusText: "User Created Successfully",
+      });
+    } else {
+      return resolve(result);
+    }
   });
 };
 
