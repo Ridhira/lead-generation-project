@@ -18,6 +18,7 @@ select  user_id,
         name,
 	    password,
 		otp,
+		partner_id,
         email_address,
 		last_login,
         status
